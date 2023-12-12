@@ -1,0 +1,22 @@
+name: debug
+
+on:
+  push:
+
+jobs:
+  debug-screenshot:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - uses: asdf-vm/actions/install@v3
+    - uses: bluefireteam/melos-action@v2
+    - run: |
+        cd packages/ubuntu_init
+        flutter test --update-goldens test/init_wizard_test.dart
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: 'screenshot'
+        path: packages/ubuntu_init/test/debug.png

@@ -101,11 +101,15 @@ void main() {
     verify(privacyModel.init()).called(1);
 
     await tester.tapNext();
-    await tester.pumpAndSettle();
     await tester.pumpUntil(find.byType(TimezonePage));
+    await tester.pumpAndSettle();
     expect(find.byType(TimezonePage), findsOneWidget);
     verify(timezoneModel.init()).called(1);
 
+    await expectLater(
+      find.byType(WizardApp),
+      matchesGoldenFile('debug.png'),
+    );
     await tester.tapNext();
     await tester.pumpAndSettle();
     expect(find.byType(TelemetryPage), findsOneWidget);
