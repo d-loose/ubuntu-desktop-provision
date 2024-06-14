@@ -80,6 +80,7 @@ Future<void> runInstallerApp(
   tryRegisterService<AccessibilityService>(GnomeAccessibilityService.new);
   tryRegisterService<ActiveDirectoryService>(
       () => SubiquityActiveDirectoryService(getService<SubiquityClient>()));
+  tryRegisterService<ApportService>(() => ApportService(liveRun: liveRun));
   tryRegisterServiceInstance<ArgResults>(options);
   tryRegisterService<ConfigService>(ConfigService.new);
   if (liveRun) tryRegisterService<DesktopService>(GnomeService.new);
