@@ -7,6 +7,7 @@ on:
       - reopened
       - synchronize
       - labeled
+      - unlabeled
 
 jobs:
   dump-context:
@@ -16,3 +17,14 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+
+  check-snap-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the PR is tagged with a snap/* label
+        if: >
+          !contains(github.event.pull_request.labels.*.name, 'snap/ubuntu-desktop-bootstrap') &&
+          !contains(github.event.pull_request.labels.*.name, 'snap/ubuntu-desktop-init') &&
+          !contains(github.event.pull_request.labels.*.name, 'snap/factory-reset-tools') &&
+          !contains(github.event.pull_request.labels.*.name, 'snap/none')
+        run: exit 1
