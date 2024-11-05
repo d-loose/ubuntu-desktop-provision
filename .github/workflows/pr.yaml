@@ -9,23 +9,6 @@ on:
       - labeled
 
 jobs:
-  cla:
-    if: contains(fromJson('["weblate"]'), github.event.pull_request.user.login) == false
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check if CLA signed
-        uses: canonical/has-signed-canonical-cla@v1
-        with:
-          exempted-bots: dependabot,github-actions,renovate
-
-  labeler:
-    permissions:
-      contents: read
-      pull-requests: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/labeler@v5
-
   dump-context:
     runs-on: ubuntu-latest
     steps:
