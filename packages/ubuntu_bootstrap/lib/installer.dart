@@ -26,6 +26,7 @@ import 'package:yaru/yaru.dart';
 
 export 'installer/installer_wizard.dart';
 
+// foo
 Future<void> runInstallerApp(
   List<String> args, {
   ThemeData? theme,
